@@ -1,0 +1,120 @@
+.overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+
+  .drawer {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 420px;
+    right: 0;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.01);
+    padding: 30px;
+
+    .items {
+      flex: 1;
+      overflow: auto;
+      margin-bottom: 40px;
+
+      .item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        border: 1px solid #f3f3f3;
+        border-radius: 20px;
+        overflow: hidden;
+        padding: 20px;
+
+        .img {
+          height: 70px;
+          width: 70px;
+          background-size: contain;
+          background-position: 0 -3px;
+          background-repeat: no-repeat;
+          margin-right: 20px;
+        }
+
+      }
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 24px;
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: space-between;
+
+      .removeBtn {
+        cursor: pointer;
+        opacity: 0.5;
+        transition: opacity 0.15s ease-in-out;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+
+  p {
+    font-size: 16px;
+    margin: 0;
+  }
+
+  b {
+    font-size: 14px;
+  }
+
+
+.total {
+  ul {
+
+    li {
+      display: flex;
+      align-items: flex-end;
+      margin-bottom: 20px;
+    }
+
+    div {
+      flex: 1;
+      height: 1px;
+      border-bottom: 1px dashed #dfdfdf;
+      position: relative;
+      top: -5px;
+      margin: 0 10px;
+    }
+  }
+
+  .order {
+    width: 100%;
+    height: 55px;
+    background-color: #9dd558;
+    border-radius: 18px;
+    border: 0;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    transition: 0.15s ease-in-out;
+
+    &:hover {
+      background-color: lighten(#9dd558, 5%);
+    }
+
+    &:active {
+      background-color: darken(#9dd558, 10%);
+    }
+  }
+}
+
+

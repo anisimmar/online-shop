@@ -1,0 +1,39 @@
+header {
+  border-bottom: 1px solid #f4f4f4;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px;
+
+  img {
+    margin-right: 15px;
+  }
+
+  .left {
+    display: flex;
+    align-items: center;
+
+    h3 {
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .right {
+    display: flex;
+
+    ul {
+      display: flex;
+      align-items: center;
+    }
+
+    .cart {
+      margin: 30px;
+      cursor: pointer;
+    }
+  }
+}
