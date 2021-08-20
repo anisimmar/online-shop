@@ -15,7 +15,7 @@ const Drawer = ({onCloseCart, items=[]}) => {
                     {items.map((obj) => (
                         <div className={st.item}>
                             <div className={st.img} style={{
-                                backgroundImage: 'url(img/products/item1)'
+                                backgroundImage: `url(${obj.imageUrl})`
                             }}></div>
                             <div className="mr-20">
                                 <p className="mb-5">

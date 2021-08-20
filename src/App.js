@@ -8,6 +8,7 @@ function App() {
     const [items, setItems] = React.useState([]);
     const [cartItems, setCartItems] = React.useState([])
     const [cartOpened, setCartOpened] = React.useState(false);
+    const [searchValue, setSearchValue] = React.useState('')
 
     React.useEffect(() => {
         fetch('https://611e78879771bf001785c4b5.mockapi.io/items')
@@ -23,6 +24,10 @@ function App() {
         setCartItems(prev => [...prev, obj])
     }
 
+    const onChangeSearchInput = (event) => {
+        setSearchValue(event.target.value);
+    }
+
     return (
         <div className='wrapper clear'>
             {cartOpened && <Drawer
@@ -36,19 +41,25 @@ function App() {
             />
             <div className="content p-40">
                 <div className="d-flex align-center mb-40 justify-between">
-                    <h1 className="">Косметика PURITO</h1>
+                    <h1 className="">{searchValue ? `Поиск по запросу: ${searchValue}` : `Косметика PURITO`}</h1>
                     <div className="search-block d-flex">
                         <img src="img/search.svg" alt="Search"/>
-                        <input type="text" placeholder="Найти..."/>
+                        <input
+                            onChange={onChangeSearchInput}
+                            type="text" placeholder="Найти..."/>
                     </div>
                 </div>
                 <div className='d-flex flex-wrap'>
-                    {items.map((item) => (
-                        <Card name={item.name} price={item.price}
-                              onClickPlus={(obj) => onAddToCart(obj)}
-                              onClickFavourite={() => {
-                                  alert('like')
-                              }}
+                    {items.filter(item => item.name.toLowerCase().includes(searchValue.toLowerCase())).map((item) => (
+                        <Card
+                            key={item.name}
+                            name={item.name}
+                            price={item.price}
+                            imageUrl={item.imageUrl}
+                            onClickPlus={(obj) => onAddToCart(obj)}
+                            onClickFavourite={() => {
+                                alert('like')
+                            }}
                         />
                     ))}
                 </div>

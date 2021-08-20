@@ -1,12 +1,12 @@
 import React from 'react';
 import st from './Card.module.scss'
 
-const Card = ({onClickFavourite, onClickPlus, name, price}) => {
+const Card = ({onClickFavourite, onClickPlus, name, price, imageUrl}) => {
 
     const [isAdded, setIsAdded] = React.useState(false);
 
     const onClickPlus2 = () => {
-        onClickPlus({name, price});
+        onClickPlus({name, price, imageUrl});
         setIsAdded(!isAdded);
     }
 
@@ -19,13 +19,13 @@ const Card = ({onClickFavourite, onClickPlus, name, price}) => {
                 >
                     <img src="img/unfavourite.jpg" alt="Unliked"/>
                 </div>
-                <img width={133} height={112} src="img/products/item2.jpg" alt="Photo"/>
+                <img width={133} height={112} src={imageUrl} alt="Photo"/>
                 <h5>
                     {name}
                 </h5>
                 <div className="d-flex justify-between align-center">
                     <div className="d-flex flex-column">
-                        <span>Цена: </span>
+                        <span className='mb-5'>Цена: </span>
                         <b>{price}P</b>
                     </div>
                     <img
