@@ -1,23 +1,31 @@
 import React from 'react';
 import st from './Card.module.scss'
 
-const Card = ({onClickFavourite, onClickPlus, name, price, imageUrl}) => {
+const Card = ({onClickFavourite, onClickPlus, name, price, imageUrl, id, isFavourited = false}) => {
 
     const [isAdded, setIsAdded] = React.useState(false);
+    const [isFavourite, setIsFavourite] = React.useState(isFavourited)
 
     const onClickPlus2 = () => {
         onClickPlus({name, price, imageUrl});
         setIsAdded(!isAdded);
     }
 
+    const onClickLike = () => {
+        onClickFavourite({id, name, price, imageUrl});
+        setIsFavourite(!isFavourite)
+    }
+
 
     return (
         <div className="d-flex">
             <div className={st.card}>
-                <div className={st.favourite}
-                     onClick={onClickFavourite}
-                >
-                    <img src="img/unfavourite.jpg" alt="Unliked"/>
+                <div className={st.favourite}>
+                    <img
+                        src={isFavourite ? 'img/favourite.jpg' : 'img/unfavourite.jpg'}
+                        alt="Favourite"
+                        onClick={onClickLike}
+                    />
                 </div>
                 <img width={133} height={112} src={imageUrl} alt="Photo"/>
                 <h5>

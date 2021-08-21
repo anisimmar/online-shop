@@ -1,7 +1,7 @@
 import React from 'react';
 import st from './Drawer.module.scss'
 
-const Drawer = ({onCloseCart, items=[]}) => {
+const Drawer = ({onCloseCart, onRemove, items = []}) => {
     return (
         <div className={st.overlay}>
             <div className={st.drawer}>
@@ -23,7 +23,9 @@ const Drawer = ({onCloseCart, items=[]}) => {
                                 </p>
                                 <b>{obj.price}</b>
                             </div>
-                            <img className={st.removeBtn} src="img/close.svg" alt="Remove"/>
+                            <img onClick={() => {
+                                onRemove(obj.id)
+                            }} className={st.removeBtn} src="img/close.svg" alt="Remove"/>
                         </div>
                     ))}
                 </div>
