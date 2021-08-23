@@ -1,6 +1,11 @@
+import React from 'react';
 import Card from "../components/Card/Card";
+import AppContext from "../context";
 
-const Favourites = ({searchValue, onChangeSearchInput, items, onAddToCart, onAddToFavourite}) => {
+const Favourites = ({searchValue, onChangeSearchInput, onAddToCart, onAddToFavourite}) => {
+
+    const state = React.useContext(AppContext)
+
     return (
         <div>
             <div className="content p-40">
@@ -15,7 +20,7 @@ const Favourites = ({searchValue, onChangeSearchInput, items, onAddToCart, onAdd
                 </div>
                 <div>
                     <div className='d-flex flex-wrap'>
-                        {items.filter(item => item.name.toLowerCase().includes(searchValue.toLowerCase())).map((item) => (
+                        {[].filter(item => item.name.toLowerCase().includes(searchValue.toLowerCase())).map((item) => (
                             <Card
                                 key={item.name}
                                 id={item.id}
