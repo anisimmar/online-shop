@@ -4,7 +4,7 @@ import AppContext from "../context";
 
 const Favourites = ({searchValue, onChangeSearchInput, onAddToCart, onAddToFavourite}) => {
 
-    const state = React.useContext(AppContext)
+    const {favourites} = React.useContext(AppContext)
 
     return (
         <div>
@@ -20,7 +20,7 @@ const Favourites = ({searchValue, onChangeSearchInput, onAddToCart, onAddToFavou
                 </div>
                 <div>
                     <div className='d-flex flex-wrap'>
-                        {[].filter(item => item.name.toLowerCase().includes(searchValue.toLowerCase())).map((item) => (
+                        {favourites.filter(item => item.name.toLowerCase().includes(searchValue.toLowerCase())).map((item) => (
                             <Card
                                 key={item.name}
                                 id={item.id}

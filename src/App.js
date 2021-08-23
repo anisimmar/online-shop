@@ -72,8 +72,12 @@ function App() {
         setSearchValue(event.target.value);
     }
 
+    const isItemAdded = (id) => {
+        return cartItems.some((obj) => Number(obj.id) === Number(id))
+    }
+
     return (
-        <AppContext.Provider value={{ cartItems, favourites, items }}>
+        <AppContext.Provider value={{ cartItems, favourites, items, isItemAdded }}>
             <div className='wrapper clear'>
                 {cartOpened && <Drawer
                     items={cartItems}

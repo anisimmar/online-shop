@@ -1,6 +1,7 @@
 import React from 'react';
 import ContentLoader from "react-content-loader"
 import st from './Card.module.scss'
+import AppContext from "../../context";
 
 const Card = ({
                   onClickFavourite, onClickPlus,
@@ -10,12 +11,13 @@ const Card = ({
                   loading = false
               }) => {
 
-    const [isAdded, setIsAdded] = React.useState(added);
+    const { isItemAdded } = React.useContext(AppContext)
+    //const [isAdded, setIsAdded] = React.useState(added);
     const [isFavourite, setIsFavourite] = React.useState(isFavourited)
 
     const onClickPlus2 = () => {
         onClickPlus({id, name, price, imageUrl});
-        setIsAdded(!isAdded);
+        //setIsAdded(!isAdded);
     }
 
     const onClickLike = () => {
@@ -59,7 +61,7 @@ const Card = ({
                                 <b>{price}P</b>
                             </div>
                             <img
-                                src={isAdded ? 'img/plus-added.jpg' : 'img/plus-not-added.jpg'}
+                                src={isItemAdded(id) ? 'img/plus-added.jpg' : 'img/plus-not-added.jpg'}
                                 alt="Btn-plus"
                                 onClick={onClickPlus2}
                                 className={st.plus}
