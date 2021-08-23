@@ -25,6 +25,7 @@ const Favourites = ({searchValue, onChangeSearchInput, items, onAddToCart, onAdd
                                 onClickPlus={(obj) => onAddToCart(obj)}
                                 isFavourited={true}
                                 onClickFavourite={(obj) => onAddToFavourite(obj)}
+
                             />
                         ))}
                     </div>

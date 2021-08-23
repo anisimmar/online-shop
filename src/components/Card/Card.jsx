@@ -1,13 +1,13 @@
 import React from 'react';
 import st from './Card.module.scss'
 
-const Card = ({onClickFavourite, onClickPlus, name, price, imageUrl, id, isFavourited = false}) => {
+const Card = ({onClickFavourite, onClickPlus, name, price, imageUrl, id, added = false, isFavourited = false}) => {
 
-    const [isAdded, setIsAdded] = React.useState(false);
+    const [isAdded, setIsAdded] = React.useState(added);
     const [isFavourite, setIsFavourite] = React.useState(isFavourited)
 
     const onClickPlus2 = () => {
-        onClickPlus({name, price, imageUrl});
+        onClickPlus({id, name, price, imageUrl});
         setIsAdded(!isAdded);
     }
 
@@ -16,7 +16,7 @@ const Card = ({onClickFavourite, onClickPlus, name, price, imageUrl, id, isFavou
         setIsFavourite(!isFavourite)
     }
 
-
+console.log("cart item render", added, isAdded)
     return (
         <div className="d-flex">
             <div className={st.card}>

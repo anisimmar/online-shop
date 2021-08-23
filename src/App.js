@@ -15,33 +15,47 @@ function App() {
     const [favourites, setFavourites] = React.useState([])
 
     React.useEffect(() => {
-        axios.get('https://611e78879771bf001785c4b5.mockapi.io/items')
-            .then((response) => {
-                setItems(response.data);
-            });
-        axios.get('https://611e78879771bf001785c4b5.mockapi.io/cart')
-            .then((response) => {
-                setCartItems(response.data);
-            });
-        axios.get('https://611e78879771bf001785c4b5.mockapi.io/favourite')
-            .then((response) => {
-                setFavourites(response.data);
-            });
+        async function fetchData() {
+            const [cartResponse, favResponse, itemsResponse] = await Promise.all([
+                axios.get('https://611e78879771bf001785c4b5.mockapi.io/cart'),
+                axios.get('https://611e78879771bf001785c4b5.mockapi.io/favourite'),
+                axios.get('https://611e78879771bf001785c4b5.mockapi.io/items'),
+            ])
+            
+            setCartItems(cartResponse.data);
+            setFavourites(favResponse.data);
+            setItems(itemsResponse.data);
+        }
+
+        fetchData();
     }, [])
 
     const onAddToCart = (obj) => {
-        axios.post('https://611e78879771bf001785c4b5.mockapi.io/cart', obj);
-        setCartItems(prev => [...prev, obj]);
+        try {
+            if (cartItems.find((item) => Number(item.id) === Number(obj.id))) {
+                axios.delete(`https://611e78879771bf001785c4b5.mockapi.io/cart/${obj.id}`)
+                setCartItems((prev) => prev.filter((item) => Number(item.id) !== Number(obj.id)));
+            } else {
+                axios.post('https://611e78879771bf001785c4b5.mockapi.io/cart', obj);
+                setCartItems((prev) => [...prev, obj]);
+            }
+        } catch (error) {
+            alert('Не удалось добавить в корзину')
+        }
     }
 
     const onAddToFavourite = async (obj) => {
-        if (favourites.find(favObj => favObj.id === obj.id)) {
-            axios.delete(`https://611e78879771bf001785c4b5.mockapi.io/favourite/${obj.id}`);
-        } else {
-            const {data} = await axios.post('https://611e78879771bf001785c4b5.mockapi.io/favourite', obj);
-            setFavourites(prev => {
-                return [...prev, data];
-            });
+        try {
+            if (favourites.find(favObj => favObj.id === obj.id)) {
+                axios.delete(`https://611e78879771bf001785c4b5.mockapi.io/favourite/${obj.id}`);
+            } else {
+                const {data} = await axios.post('https://611e78879771bf001785c4b5.mockapi.io/favourite', obj);
+                setFavourites(prev => {
+                    return [...prev, data];
+                });
+            }
+        } catch (error) {
+            alert('Не удалось добавить в Избранное')
         }
     }
 
@@ -70,6 +84,7 @@ function App() {
             <Route path='/' exact>
                 <Home
                     items={items}
+                    cartItems={cartItems}
                     searchValue={searchValue}
                     setSearchValue={setSearchValue}
                     onChangeSearchInput={onChangeSearchInput}

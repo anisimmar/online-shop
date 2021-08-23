@@ -13,7 +13,7 @@ const Drawer = ({onCloseCart, onRemove, items = []}) => {
                 </h2>
                 <div className={st.items}>
                     {items.map((obj) => (
-                        <div className={st.item}>
+                        <div key={obj.id} className={st.item}>
                             <div className={st.img} style={{
                                 backgroundImage: `url(${obj.imageUrl})`
                             }}></div>

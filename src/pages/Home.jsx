@@ -1,6 +1,6 @@
 import Card from "../components/Card/Card";
 
-const Home = ({items, onAddToCart, onChangeSearchInput, searchValue, setSearchValue, onAddToFavourite}) => {
+const Home = ({items, onAddToCart, cartItems, onChangeSearchInput, searchValue, setSearchValue, onAddToFavourite}) => {
     return (
         <div className="content p-40">
             <div className="d-flex align-center mb-40 justify-between">
@@ -12,6 +12,7 @@ const Home = ({items, onAddToCart, onChangeSearchInput, searchValue, setSearchVa
                         type="text" placeholder="Найти..."/>
                 </div>
             </div>
+            {console.log('items', cartItems, items)}
             <div className='d-flex flex-wrap'>
                 {items.filter(item => item.name.toLowerCase().includes(searchValue.toLowerCase())).map((item) => (
                     <Card
@@ -22,6 +23,7 @@ const Home = ({items, onAddToCart, onChangeSearchInput, searchValue, setSearchVa
                         imageUrl={item.imageUrl}
                         onClickPlus={(obj) => onAddToCart(obj)}
                         onClickFavourite={(obj) => onAddToFavourite(obj)}
+                        added={cartItems.some((obj) => Number(obj.id) === Number(item.id))}
                     />
                 ))}
             </div>
