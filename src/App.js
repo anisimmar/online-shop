@@ -77,7 +77,7 @@ function App() {
     }
 
     return (
-        <AppContext.Provider value={{ cartItems, favourites, items, isItemAdded }}>
+        <AppContext.Provider value={{ cartItems, favourites, items, isItemAdded, onAddToFavourite }}>
             <div className='wrapper clear'>
                 {cartOpened && <Drawer
                     items={cartItems}
@@ -106,7 +106,6 @@ function App() {
                         searchValue={searchValue}
                         onChangeSearchInput={onChangeSearchInput}
                         onAddToCart={onAddToCart}
-                        onAddToFavourite={onAddToFavourite}
                     />
                 </Route>
             </div>

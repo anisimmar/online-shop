@@ -2,9 +2,9 @@ import React from 'react';
 import Card from "../components/Card/Card";
 import AppContext from "../context";
 
-const Favourites = ({searchValue, onChangeSearchInput, onAddToCart, onAddToFavourite}) => {
+const Favourites = ({searchValue, onChangeSearchInput, onAddToCart}) => {
 
-    const {favourites} = React.useContext(AppContext)
+    const {favourites, onAddToFavourite} = React.useContext(AppContext)
 
     return (
         <div>

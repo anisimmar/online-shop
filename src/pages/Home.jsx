@@ -1,5 +1,4 @@
 import React from 'react';
-import AppContext from "../context";
 import Card from "../components/Card/Card";
 
 const Home = ({
@@ -13,8 +12,6 @@ const Home = ({
                   onAddToFavourite
               }) => {
 
-   // const { isItemAdded } = React.useContext(AppContext)
-
     const renderItems = () => {
         const filteredItems = items.filter(item => item.name.toLowerCase().includes(searchValue.toLowerCase()));
 
@@ -23,7 +20,6 @@ const Home = ({
                 {...item}
                 onClickPlus={(obj) => onAddToCart(obj)}
                 onClickFavourite={(obj) => onAddToFavourite(obj)}
-                //added={isItemAdded(item && item.id)}
                 loading={isLoading}
             />
         ))

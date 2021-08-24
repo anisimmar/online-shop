@@ -17,7 +17,6 @@ const Card = ({
 
     const onClickPlus2 = () => {
         onClickPlus({id, name, price, imageUrl});
-        //setIsAdded(!isAdded);
     }
 
     const onClickLike = () => {
