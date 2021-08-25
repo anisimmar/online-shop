@@ -20,33 +20,39 @@ function App() {
 
     React.useEffect(() => {
         async function fetchData() {
-            setIsLoading(true)
-            const [cartResponse, favResponse, itemsResponse] = await Promise.all([
-                axios.get('https://611e78879771bf001785c4b5.mockapi.io/cart'),
-                axios.get('https://611e78879771bf001785c4b5.mockapi.io/favourite'),
-                axios.get('https://611e78879771bf001785c4b5.mockapi.io/items'),
-            ])
+            try {
+                setIsLoading(true)
+                const [cartResponse, favResponse, itemsResponse] = await Promise.all([
+                    axios.get('https://611e78879771bf001785c4b5.mockapi.io/cart'),
+                    axios.get('https://611e78879771bf001785c4b5.mockapi.io/favourite'),
+                    axios.get('https://611e78879771bf001785c4b5.mockapi.io/items'),
+                ])
 
-            setIsLoading(false);
-            setCartItems(cartResponse.data);
-            setFavourites(favResponse.data);
-            setItems(itemsResponse.data);
+                setIsLoading(false);
+                setCartItems(cartResponse.data);
+                setFavourites(favResponse.data);
+                setItems(itemsResponse.data);
+            } catch (error) {
+                alert('Ощибка при загрузке данных');
+                console.error(error)
+            }
         }
 
         fetchData();
     }, [])
 
-    const onAddToCart = (obj) => {
+    const onAddToCart = async (obj) => {
         try {
             if (cartItems.find((item) => Number(item.id) === Number(obj.id))) {
-                axios.delete(`https://611e78879771bf001785c4b5.mockapi.io/cart/${obj.id}`)
+                await axios.delete(`https://611e78879771bf001785c4b5.mockapi.io/cart/${obj.id}`)
                 setCartItems((prev) => prev.filter((item) => Number(item.id) !== Number(obj.id)));
             } else {
-                axios.post('https://611e78879771bf001785c4b5.mockapi.io/cart', obj);
+                await axios.post('https://611e78879771bf001785c4b5.mockapi.io/cart', obj);
                 setCartItems((prev) => [...prev, obj]);
             }
         } catch (error) {
-            alert('Не удалось добавить в корзину')
+            alert('Не удалось добавить в корзину');
+            console.error(error)
         }
     }
 
@@ -62,13 +68,19 @@ function App() {
                 });
             }
         } catch (error) {
-            alert('Не удалось добавить в Избранное')
+            alert('Не удалось добавить в Избранное');
+            console.error(error)
         }
     }
 
     const onRemoveItem = (id) => {
-        axios.delete(`https://611e78879771bf001785c4b5.mockapi.io/cart/${id}`);
-        setCartItems(prev => prev.filter(item => item.id !== id));
+        try {
+            axios.delete(`https://611e78879771bf001785c4b5.mockapi.io/cart/${id}`);
+            setCartItems(prev => prev.filter(item => item.id !== id));
+        } catch (error) {
+            alert('Ошибка при удалении товара из корзины')
+            console.error(error);
+        }
     }
 
     const onChangeSearchInput = (event) => {
@@ -80,7 +92,18 @@ function App() {
     }
 
     return (
-        <AppContext.Provider value={{ cartItems, favourites, items, isItemAdded, onAddToFavourite, setCartOpened, setCartItems }}>
+        <AppContext.Provider
+            value={
+                {
+                    cartItems,
+                    favourites,
+                    items,
+                    isItemAdded,
+                    onAddToFavourite,
+                    onAddToCart,
+                    setCartOpened,
+                    setCartItems
+                }}>
             <div className='wrapper clear'>
                 {cartOpened && <Drawer
                     items={cartItems}

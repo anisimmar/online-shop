@@ -12,7 +12,7 @@ const Card = ({
                   loading = false
               }) => {
 
-    const { isItemAdded } = React.useContext(AppContext)
+    const {isItemAdded} = React.useContext(AppContext)
     //const [isAdded, setIsAdded] = React.useState(added);
     const [isFavourite, setIsFavourite] = React.useState(isFavourited)
 
@@ -45,11 +45,11 @@ const Card = ({
                         <rect x="118" y="214" rx="6" ry="6" width="32" height="32"/>
                     </ContentLoader> : <>
                         <div className={st.favourite}>
-                            <img
+                            {onClickFavourite && <img
                                 src={isFavourite ? 'img/favourite.jpg' : 'img/unfavourite.jpg'}
                                 alt="Favourite"
                                 onClick={onClickLike}
-                            />
+                            />}
                         </div>
                         <img width={133} height={112} src={imageUrl} alt="Photo"/>
                         <h5>
@@ -60,12 +60,12 @@ const Card = ({
                                 <span className='mb-5'>Цена: </span>
                                 <b>{price}P</b>
                             </div>
-                            <img
+                            {onClickPlus && <img
                                 src={isItemAdded(id) ? 'img/plus-added.jpg' : 'img/plus-not-added.jpg'}
                                 alt="Btn-plus"
                                 onClick={onClickPlus2}
                                 className={st.plus}
-                            />
+                            />}
                         </div>
                     </>
                 }
