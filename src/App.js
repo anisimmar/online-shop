@@ -1,11 +1,13 @@
 import React from 'react';
 import axios from "axios";
+import {Route} from "react-router-dom";
+import AppContext from "./context";
+
 import Header from "./components/Header/Header";
 import Drawer from "./components/Drawer/Drawer";
 import Home from "./pages/Home";
-import {Route} from "react-router-dom";
 import Favourites from "./pages/Favourites";
-import AppContext from "./context";
+import Orders from "./pages/Orders";
 
 function App() {
 
@@ -50,8 +52,9 @@ function App() {
 
     const onAddToFavourite = async (obj) => {
         try {
-            if (favourites.find(favObj => favObj.id === obj.id)) {
+            if (favourites.find(favObj => Number(favObj.id) === Number(obj.id))) {
                 axios.delete(`https://611e78879771bf001785c4b5.mockapi.io/favourite/${obj.id}`);
+                setFavourites(prev => prev.filter((favObj) => Number(favObj.id) !== Number(obj.id)))
             } else {
                 const {data} = await axios.post('https://611e78879771bf001785c4b5.mockapi.io/favourite', obj);
                 setFavourites(prev => {
@@ -77,7 +80,7 @@ function App() {
     }
 
     return (
-        <AppContext.Provider value={{ cartItems, favourites, items, isItemAdded, onAddToFavourite }}>
+        <AppContext.Provider value={{ cartItems, favourites, items, isItemAdded, onAddToFavourite, setCartOpened, setCartItems }}>
             <div className='wrapper clear'>
                 {cartOpened && <Drawer
                     items={cartItems}
@@ -106,6 +109,11 @@ function App() {
                         searchValue={searchValue}
                         onChangeSearchInput={onChangeSearchInput}
                         onAddToCart={onAddToCart}
+                    />
+                </Route>
+                <Route path='/orders'>
+                    <Orders
+
                     />
                 </Route>
             </div>

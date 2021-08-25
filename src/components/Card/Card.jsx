@@ -1,7 +1,8 @@
 import React from 'react';
 import ContentLoader from "react-content-loader"
-import st from './Card.module.scss'
 import AppContext from "../../context";
+
+import st from './Card.module.scss'
 
 const Card = ({
                   onClickFavourite, onClickPlus,

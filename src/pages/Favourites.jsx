@@ -1,6 +1,7 @@
 import React from 'react';
-import Card from "../components/Card/Card";
 import AppContext from "../context";
+
+import Card from "../components/Card/Card";
 
 const Favourites = ({searchValue, onChangeSearchInput, onAddToCart}) => {
 
