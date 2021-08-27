@@ -3,7 +3,7 @@
 https://anisimmar.github.io/online-shop/
 
 ## Технологии:
-###ReactJS + хуки
+ReactJS + хуки
 React Router
 Axios
 SCSS
